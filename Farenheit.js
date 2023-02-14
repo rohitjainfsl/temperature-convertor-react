@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { TempContext } from "./App";
 
 function Farenheit() {
-  const { setCurrentTemp, convertedTemp } = useContext(TempContext);
+  const { setCurrentTemp, celcius } = useContext(TempContext);
 
   function handleChange(e) {
     setCurrentTemp({ value: e.target.value, name: e.target.name });
@@ -15,7 +15,7 @@ function Farenheit() {
         type="text"
         placeholder="Enter temp in farenheit"
         onChange={handleChange}
-        value={convertedTemp}
+        value={celcius}
         name="farenheit"
       />
     </div>

@@ -9,11 +9,12 @@ function App() {
     value: '',
     name: ''
   });
-  const [convertedTemp, setConvertedTemp] = useState("");
+  const [celcius, setCelcius] = useState("");
+  const [farenheit, setFarenheit] = useState("");
 
   useEffect(() => {    
-      if (currentInput.name === "celcius") setConvertedTemp((currentInput.value * 9) / 5 + 32);
-      else if(currentInput.name === "farenheit") setConvertedTemp(((currentInput.value - 32) * 5) / 9);
+      if (currentInput.name === "celcius") setFarenheit((currentInput.value * 9) / 5 + 32);
+      else if(currentInput.name === "farenheit") setCelcius(((currentInput.value - 32) * 5) / 9);
     
   }, [currentInput]);
 
@@ -21,7 +22,7 @@ function App() {
     <>
       <h1 style={{ marginBottom: "2rem" }}>Temperature Convertor</h1>
       <TempContext.Provider
-        value={{ currentInput, setCurrentTemp, convertedTemp }}
+        value={{ currentInput, setCurrentTemp, celcius, farenheit }}
       >
         <Celcius />
         <Farenheit />
