@@ -1,32 +1,36 @@
-import React, { useEffect, useState, createContext } from "react";
-import Celcius from "./Celcius";
-import Farenheit from "./Farenheit";
-
-export const TempContext = createContext({});
+import React, { useEffect, useState } from "react";
 
 function App() {
-  const [currentInput, setCurrentTemp] = useState({
-    value: '',
-    name: ''
-  });
   const [celcius, setCelcius] = useState("");
   const [farenheit, setFarenheit] = useState("");
 
-  useEffect(() => {    
-      if (currentInput.name === "celcius") setFarenheit((currentInput.value * 9) / 5 + 32);
-      else if(currentInput.name === "farenheit") setCelcius(((currentInput.value - 32) * 5) / 9);
-    
-  }, [currentInput]);
+  function conversion(value, scale) {
+    if (scale === "c") {
+      setFarenheit((value * 9) / 5 + 32);
+      setCelcius(value);
+    } else {
+      setCelcius(((value - 32) * 5) / 9);
+      setFarenheit(value);
+    }
+  }
 
   return (
     <>
-      <h1 style={{ marginBottom: "2rem" }}>Temperature Convertor</h1>
-      <TempContext.Provider
-        value={{ currentInput, setCurrentTemp, celcius, farenheit }}
-      >
-        <Celcius />
-        <Farenheit />
-      </TempContext.Provider>
+      <h1>Temperature Convertor</h1>
+      <input
+        type="text"
+        name="celcius"
+        placeholder="Enter temp in celcius"
+        value={celcius}
+        onChange={(e) => conversion(e.target.value, "c")}
+      />
+      <input
+        type="text"
+        name="farenheit"
+        placeholder="Enter temp in farenheit"
+        value={farenheit}
+        onChange={(e) => conversion(e.target.value, "f")}
+      />
     </>
   );
 }
