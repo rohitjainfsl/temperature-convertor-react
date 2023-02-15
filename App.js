@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
+import Celcius from "./Celcius";
+import Farenheit from "./Farenheit";
+
+export const TemperatureContext = createContext({});
 
 function App() {
   const [celcius, setCelcius] = useState("");
@@ -17,20 +21,10 @@ function App() {
   return (
     <>
       <h1>Temperature Convertor</h1>
-      <input
-        type="text"
-        name="celcius"
-        placeholder="Enter temp in celcius"
-        value={celcius}
-        onChange={(e) => conversion(e.target.value, "c")}
-      />
-      <input
-        type="text"
-        name="farenheit"
-        placeholder="Enter temp in farenheit"
-        value={farenheit}
-        onChange={(e) => conversion(e.target.value, "f")}
-      />
+      <TemperatureContext.Provider value={{celcius, farenheit, conversion}}>
+        <Celcius />
+        <Farenheit />
+      </TemperatureContext.Provider>
     </>
   );
 }
